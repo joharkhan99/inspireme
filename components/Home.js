@@ -31,7 +31,7 @@ function Home() {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
-        colors={["#F1BBF0", "#BDAAF9", "#B1DFF9"]}
+        colors={["#fff", "#fff"]}
         start={{ x: -1, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.gradient}
@@ -62,7 +62,7 @@ function Home() {
               </Text>
               <Text style={[styles.quoteMark, styles.quoteMarkRight]}>❞</Text>
             </View>
-            <Text style={styles.author}>Winston Churchill</Text>
+            <Text style={styles.author}>- Winston Churchill</Text>
           </View>
 
           <TouchableOpacity
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     width: "100%",
     borderRadius: 100,
     marginTop: 30,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: "rgba(0, 0, 0, 0.05)",
     shadowColor: "#ccc",
     elevation: 5,
   },
@@ -115,12 +115,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
   },
   quoteCont: {
-    backgroundColor: "white",
+    backgroundColor: "#252424",
     width: "100%",
     shadowColor: "#ccc",
     elevation: 5,
-    borderRadius: 20,
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    // borderRadius: 20,
     paddingBottom: 30,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    borderTopLeftRadius: 5,
+    borderBottomRightRadius: 5,
   },
   quote: {
     flexDirection: "row",
@@ -133,7 +143,7 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: "bold",
     position: "absolute",
-    color: "#E0E0FB",
+    color: "rgba(255,255,255,0.1)",
     zIndex: -1,
   },
   quoteMarkLeft: {
@@ -146,17 +156,18 @@ const styles = StyleSheet.create({
   },
   quoteText: {
     flex: 1,
-    fontSize: 20,
+    fontSize: 25,
     lineHeight: 24,
     fontFamily: "OleoScriptRegular",
-    color: "#252424",
+    color: "#fff",
   },
   author: {
     flex: 1,
     fontSize: 12,
     lineHeight: 24,
     fontFamily: "Inter",
-    color: "rgb(191, 191 ,217)",
+    // color: "rgb(191, 191 ,217)",
+    color: "rgba(255,255,255,0.5)",
     // color: "#E0E0FB",
     fontWeight: "bold",
     paddingHorizontal: 30,

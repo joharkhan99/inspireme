@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,24 +9,24 @@ import {
   ScrollView,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-const categories = [
-  { id: 1, title: "Motivation" },
-  { id: 2, title: "Success" },
-  { id: 3, title: "Love" },
-  { id: 4, title: "Wisdom" },
-  { id: 5, title: "Friendship" },
-  // Add more categories as needed
-];
+import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 
 const Categories = () => {
-  const colors = [
-    ["#FEE8D6", "#FBB996", "#F69C81"],
-    ["#FAF3E8", "#E8DCCD", "#CBB7A9"],
-    ["#EAE2F8", "#C3ADF0", "#9887E2"],
-    ["#FDD7E8", "#F59BB3", "#E96387"],
-    ["#DAF8E9", "#86E9B7", "#51CE8A"],
-  ];
+  const navigation = useNavigation();
+  const [fontsLoaded] = useFonts({
+    OleoScript: require("../assets/fonts/Oleo_Script/OleoScript-Bold.ttf"),
+    OleoScriptRegular: require("../assets/fonts/Oleo_Script/OleoScript-Regular.ttf"),
+    Inter: require("../assets/fonts/Inter/static/Inter-ExtraBold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  const navigateToQuotes = (category) => {
+    navigation.navigate("Quotes", { cat: category });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,77 +44,44 @@ const Categories = () => {
             <View style={styles.categoryList}>
               <View style={styles.column}>
                 <LinearGradient
-                  colors={[
-                    "rgba(181, 23, 158, 0.7)",
-                    "rgba(247, 91, 180, 0.7)",
-                  ]}
+                  colors={["#FF9800", "#FFB74D"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#FF9800",
                       elevation: 20,
-                      shadowColor: "rgba(181, 23, 158, 1)",
+                      elevation: 20,
+                      shadowOpacity: 0.5,
+                      shadowRadius: 10,
+                      shadowOffset: {
+                        width: 0,
+                        height: 5,
+                      },
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Motivational")}
+                  >
+                    <Text style={styles.text}>Motivational</Text>
                   </TouchableOpacity>
                 </LinearGradient>
                 <LinearGradient
-                  colors={["rgba(0, 163, 255, 0.7)", "rgba(3, 218, 198, 0.7)"]}
+                  colors={["#5D4B72", "#B49FCE"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#5D4B72",
                       elevation: 20,
-                      shadowColor: "rgba(0, 163, 255, 1)",
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation</Text>
-                  </TouchableOpacity>
-                </LinearGradient>
-              </View>
-            </View>
-            <View style={styles.categoryList}>
-              <View style={styles.column}>
-                <LinearGradient
-                  colors={["rgba(255, 111, 0, 0.7)", "rgba(255, 214, 0, 0.7)"]}
-                  style={[
-                    styles.Motivation,
-                    {
-                      elevation: 20,
-                      shadowColor: "rgba(255, 111, 0, 1)",
-                    },
-                  ]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation1</Text>
-                  </TouchableOpacity>
-                </LinearGradient>
-                <LinearGradient
-                  colors={[
-                    "rgba(110, 254, 167, 0.7)",
-                    "rgba(24, 166, 173, 0.7)",
-                  ]}
-                  style={[
-                    styles.Motivation,
-                    {
-                      elevation: 20,
-                      shadowColor: "rgba(24, 166, 173, 1)",
-                    },
-                  ]}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation2</Text>
+                  <TouchableOpacity onPress={() => navigateToQuotes("Alone")}>
+                    <Text style={styles.text}>Alone</Text>
                   </TouchableOpacity>
                 </LinearGradient>
               </View>
@@ -122,41 +89,39 @@ const Categories = () => {
             <View style={styles.categoryList}>
               <View style={styles.column}>
                 <LinearGradient
-                  colors={[
-                    "rgba(135, 206, 235, 0.7)",
-                    "rgba(224, 176, 255, 0.7)",
-                  ]}
+                  colors={["#F5515F", "#FFA384"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#F5515F",
                       elevation: 20,
-                      shadowColor: "rgba(135, 206, 235, 1)",
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation2</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Friendship")}
+                  >
+                    <Text style={styles.text}>Friendship</Text>
                   </TouchableOpacity>
                 </LinearGradient>
                 <LinearGradient
-                  colors={[
-                    "rgba(61, 126, 255, 0.7)",
-                    "rgba(160, 107, 255, 0.7)",
-                  ]}
+                  colors={["#5E60CE", "#9B59B6"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#5E60CE",
                       elevation: 20,
-                      shadowColor: "rgba(61, 126, 255, 1)",
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Leadership")}
+                  >
+                    <Text style={styles.text}>Leadership</Text>
                   </TouchableOpacity>
                 </LinearGradient>
               </View>
@@ -164,38 +129,299 @@ const Categories = () => {
             <View style={styles.categoryList}>
               <View style={styles.column}>
                 <LinearGradient
-                  colors={["rgba(255, 23, 68, 0.7)", "rgba(255, 109, 0, 0.7)"]}
+                  colors={["#1E90FF", "#56CCF2"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#1E90FF",
                       elevation: 20,
-                      shadowColor: "rgba(255, 23, 68, 1)",
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation</Text>
+                  <TouchableOpacity onPress={() => navigateToQuotes("Reading")}>
+                    <Text style={styles.text}>Reading</Text>
                   </TouchableOpacity>
                 </LinearGradient>
                 <LinearGradient
-                  colors={[
-                    "rgba(30, 136, 229, 0.7)",
-                    "rgba(38, 198, 218, 0.7)",
-                  ]}
+                  colors={["#FFA500", "#FFC542"]}
                   style={[
-                    styles.Motivation,
+                    styles.category,
                     {
+                      shadowColor: "#FFA500",
                       elevation: 20,
-                      shadowColor: "rgba(30, 136, 229, 1)",
                     },
                   ]}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TouchableOpacity>
-                    <Text style={styles.text}>Motivation</Text>
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Strength")}
+                  >
+                    <Text style={styles.text}>Strength</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#9C27B0", "#BA68C8"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#9C27B0",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Trust")}>
+                    <Text style={styles.text}>Trust</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#E15A97", "#F47BB3"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#E15A97",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Attitude")}
+                  >
+                    <Text style={styles.text}>Attitude</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#FDD835", "#FFEE58"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#FDD835",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Happiness")}
+                  >
+                    <Text style={styles.text}>Happiness</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#4A148C", "#7E57C2"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#4A148C",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Life")}>
+                    <Text style={styles.text}>Life</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#00B894", "#00EAA4"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#00B894",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Nature")}>
+                    <Text style={styles.text}>Nature</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#FF6B6B", "#FFCE56"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#FF6B6B",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Relationship")}
+                  >
+                    <Text style={styles.text}>Relationship</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#4CAF50", "#8BC34A"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#4CAF50",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Success")}>
+                    <Text style={styles.text}>Success</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#795548", "#A1887F"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#795548",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Wisdom")}>
+                    <Text style={styles.text}>Wisdom</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#40C4FF", "#80D8FF"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#40C4FF",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Inspirational")}
+                  >
+                    <Text style={styles.text}>Inspirational</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#E53935", "#EF5350"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#E53935",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Love")}>
+                    <Text style={styles.text}>Love</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#FFD700", "#FBC531"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#FFD700",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity
+                    onPress={() => navigateToQuotes("Positive")}
+                  >
+                    <Text style={styles.text}>Positive</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#2C3E50", "#3498DB"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#2C3E50",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Time")}>
+                    <Text style={styles.text}>Time</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+              </View>
+            </View>
+            <View style={styles.categoryList}>
+              <View style={styles.column}>
+                <LinearGradient
+                  colors={["#FF1744", "#FF5252"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#FF1744",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Anger")}>
+                    <Text style={styles.text}>Anger</Text>
+                  </TouchableOpacity>
+                </LinearGradient>
+                <LinearGradient
+                  colors={["#FF4081", "#F48FB1"]}
+                  style={[
+                    styles.category,
+                    {
+                      shadowColor: "#FF4081",
+                      elevation: 20,
+                    },
+                  ]}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 1 }}
+                >
+                  <TouchableOpacity onPress={() => navigateToQuotes("Woman")}>
+                    <Text style={styles.text}>Woman</Text>
                   </TouchableOpacity>
                 </LinearGradient>
               </View>
@@ -210,7 +436,7 @@ const Categories = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#202123",
   },
   contentContainer: {},
   gradient: {
@@ -226,20 +452,21 @@ const styles = StyleSheet.create({
     gap: 20,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 22,
     marginBottom: 40,
     color: "black",
     textAlign: "center",
+    fontWeight: "900",
+    fontFamily: "OleoScriptRegular",
   },
   categoryList: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 20,
   },
-  Motivation: {
+  category: {
     paddingVertical: 50,
-    backgroundColor: "#fff",
+    backgroundColor: "rgba(255,255,255,0.5)",
     borderRadius: 20,
     flex: 1,
     alignItems: "center",
@@ -255,7 +482,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 18,
+    fontFamily: "Inter",
   },
 });
 
