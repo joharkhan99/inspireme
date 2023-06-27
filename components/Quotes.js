@@ -39,7 +39,6 @@ import wisdomQuotes from "../assets/quotes/wisdom.json";
 import womanQuotes from "../assets/quotes/woman.json";
 
 const Quotes = () => {
-  const [copiedText, setCopiedText] = useState("");
   const [color, setColor] = useState("");
   const [font, setFont] = useState("");
   const [quotesList, setQuotesList] = useState([]);
@@ -98,74 +97,73 @@ const Quotes = () => {
   };
 
   const getRandomQuoteFromCategory = (category) => {
+    var q = [];
     switch (category) {
       case "Motivational":
-        setQuotesList(motivationQuotes);
+        q = motivationQuotes;
         break;
       case "Alone":
-        setQuotesList(aloneQuotes);
+        q = aloneQuotes;
         break;
       case "Anger":
-        setQuotesList(angerQuotes);
+        q = angerQuotes;
         break;
       case "Attitude":
-        setQuotesList(attitudeQuotes);
+        q = attitudeQuotes;
         break;
       case "Friendship":
-        setQuotesList(friendshipQuotes);
+        q = friendshipQuotes;
         break;
       case "Happiness":
-        setQuotesList(happinessQuotes);
+        q = happinessQuotes;
         break;
       case "Inspirational":
-        setQuotesList(inspirationalQuotes);
+        q = inspirationalQuotes;
         break;
       case "Leadership":
-        setQuotesList(leadershipQuotes);
+        q = leadershipQuotes;
         break;
       case "Life":
-        setQuotesList(lifeQuotes);
+        q = lifeQuotes;
         break;
       case "Love":
-        setQuotesList(loveQuotes);
+        q = loveQuotes;
         break;
       case "Nature":
-        setQuotesList(natureQuotes);
+        q = natureQuotes;
         break;
       case "Positive":
-        setQuotesList(positiveQuotes);
+        q = positiveQuotes;
         break;
       case "Reading":
-        setQuotesList(readingQuotes);
+        q = readingQuotes;
         break;
       case "Relationship":
-        setQuotesList(relationshipQuotes);
+        q = relationshipQuotes;
         break;
       case "Strength":
-        setQuotesList(strengthQuotes);
+        q = strengthQuotes;
         break;
       case "Success":
-        setQuotesList(successQuotes);
+        q = successQuotes;
         break;
       case "Time":
-        setQuotesList(timeQuotes);
+        q = timeQuotes;
         break;
       case "Trust":
-        setQuotesList(trustQuotes);
+        q = trustQuotes;
         break;
       case "Wisdom":
-        setQuotesList(wisdomQuotes);
+        q = wisdomQuotes;
         break;
       case "Woman":
-        setQuotesList(womanQuotes);
+        q = womanQuotes;
         break;
       default:
-        setQuotesList([]);
+        q = [];
         break;
     }
-
-    const randomQuote =
-      quotesList[Math.floor(Math.random() * quotesList.length)];
+    const randomQuote = q[Math.floor(Math.random() * q.length)];
 
     setColor(generateRandomDarkColor());
     setFont(fontsList[Math.floor(Math.random() * fontsList.length)]);
