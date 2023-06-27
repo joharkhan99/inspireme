@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,13 +7,28 @@ import {
   ScrollView,
   View,
   TouchableOpacity,
+  Alert,
+  Share,
 } from "react-native";
 import { useFonts } from "expo-font";
-import { Feather, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import * as Speech from "expo-speech";
+import * as Clipboard from "expo-clipboard";
+import { Feather, Entypo, AntDesign } from "@expo/vector-icons";
+import randomQuotes from "../assets/quotes/random.json";
 
 function Home() {
   const navigation = useNavigation();
+  const [quote, setQuote] = useState("");
+  const [author, setAuthor] = useState("");
+
+  useEffect(() => {
+    const randomQuote =
+      randomQuotes[Math.floor(Math.random() * randomQuotes.length)];
+    setQuote(randomQuote["quote"]);
+    setAuthor(randomQuote["author"]);
+  }, []);
+
   const [fontsLoaded] = useFonts({
     OleoScript: require("../assets/fonts/Oleo_Script/OleoScript-Bold.ttf"),
     OleoScriptRegular: require("../assets/fonts/Oleo_Script/OleoScript-Regular.ttf"),
@@ -26,6 +41,28 @@ function Home() {
 
   const handleExplorePress = () => {
     navigation.navigate("Categories");
+  };
+
+  const speak = () => {
+    Speech.speak(quote, {
+      _voiceIndex: 2,
+    });
+  };
+
+  const shareContent = async () => {
+    try {
+      const content = `"${quote}" - ${author}`;
+      await Share.share({
+        message: content,
+      });
+    } catch (error) {
+      alert("Failed to share content.");
+    }
+  };
+
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync(`"${quote}" - ${author}`);
+    Alert.alert("Copied to clipboard");
   };
 
   return (
@@ -55,14 +92,22 @@ function Home() {
           <View style={styles.quoteCont}>
             <View style={styles.quote}>
               <Text style={[styles.quoteMark, styles.quoteMarkLeft]}>❝</Text>
-              <Text style={styles.quoteText}>
-                "All symbols are unicode character, not image nor combined
-                characters. But you can also combine them by yourself them by
-                yourself yo"
-              </Text>
+              <Text style={styles.quoteText}>"{quote}"</Text>
               <Text style={[styles.quoteMark, styles.quoteMarkRight]}>❞</Text>
             </View>
-            <Text style={styles.author}>- Winston Churchill</Text>
+            <Text style={styles.author}>- {author}</Text>
+
+            <View style={styles.quotesBtn}>
+              <TouchableOpacity onPress={speak} style={styles.button}>
+                <Entypo name="controller-play" size={22} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={copyToClipboard} style={styles.button}>
+                <Feather name="copy" size={22} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={shareContent} style={styles.button}>
+                <Entypo name="share" size={22} color="white" />
+              </TouchableOpacity>
+            </View>
           </View>
 
           <TouchableOpacity
@@ -88,6 +133,23 @@ function Home() {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    padding: 0,
+    borderRadius: 5,
+    flex: 1,
+    textAlign: "center",
+    alignItems: "center",
+    shadowColor: "rgba(0,0,0,0.2)",
+    elevation: 20,
+  },
+  quotesBtn: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 20,
+    paddingHorizontal: 20,
+    marginTop: 20,
+  },
   buttonContainer: {
     width: "100%",
     borderRadius: 100,
@@ -157,7 +219,7 @@ const styles = StyleSheet.create({
   quoteText: {
     flex: 1,
     fontSize: 25,
-    lineHeight: 24,
+    lineHeight: 28,
     fontFamily: "OleoScriptRegular",
     color: "#fff",
   },
