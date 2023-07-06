@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#110E09"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -22,7 +20,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#110E09"
       },
-      "package": "com.joharkhan051.inspireme"
+      "package": "com.joharkhan051.inspireme",
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
